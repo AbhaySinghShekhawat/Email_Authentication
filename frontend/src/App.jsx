@@ -2,7 +2,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./Layout";
-import Signup from "./pages/Signup";
+import Signup from "./Pages/Signup";
 import Login from "./Pages/Login";
 import ForgotPassword from "./Pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";

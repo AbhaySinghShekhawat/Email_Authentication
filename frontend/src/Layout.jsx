@@ -1,8 +1,8 @@
 import React from "react";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Home from "./pages/Home";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
+import Home from "./Pages/Home";
 import Clint from "./Pages/Clint";
 import Skill from "./Pages/Skill";
 import Project from "./Pages/Project";
