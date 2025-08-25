@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 export const MainContext = createContext();
 
 function MainProvider({ children }) {
-  const SERVER_URL = "http://localhost:8000";
+  const SERVER_URL = "https://email-authentication-1.onrender.com";
   
   const notify = (message, status) => {
     const toastType = status ? "success" : "error";
