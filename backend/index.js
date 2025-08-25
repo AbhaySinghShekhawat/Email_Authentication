@@ -14,9 +14,6 @@ app.use(
   cors({
     origin: ["https://email-authentication-u64e.onrender.com"],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    exposedHeaders: ["Set-Cookie"],
-    maxAge: 24 * 60 * 60 * 1000,
     credentials: true,
   })
 );
