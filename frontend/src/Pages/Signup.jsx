@@ -29,18 +29,10 @@ const Signup = () => {
 
     try {
       setLoading(true);
-      // const response = await axios.post(`${SERVER_URL}/api/user/signup`, data, {
-      //   withCredentials: true,
-      // });
-      const response = await axios.post(`${SERVER_URL}/api/user/signup`, data,{
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
-      
-      
-
+       const response = await axios.post(`${SERVER_URL}/api/user/signup`, data, {
+         withCredentials: true,
+       });
+   
       if (response.data.status === 1) {
         const { user, token } = response.data;
         setuserData(user);
