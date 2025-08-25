@@ -7,7 +7,7 @@ import Login from "./Pages/Login";
 import ForgotPassword from "./Pages/ForgotPassword";
 import ResetPassword from "./Pages/ResetPassword";
 import VerifyResetOtp from "./Pages/VerifyResetOtp";
-import VerifyOtp from "./Pages/VerifyOtp";
+import VerifyOtp from "./Pages/Verifyotp";
 
 const router = createBrowserRouter([
   {
