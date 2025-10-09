@@ -40,6 +40,7 @@ exports.signup = async (req, res) => {
           msg: "User created successfully,OTP sent to your email",
           user: userWithoutPassword,
         });
+        console.log(user);
       } catch (err) {
         await User.findByIdAndDelete(user._id);
         res.send({
@@ -47,10 +48,12 @@ exports.signup = async (req, res) => {
           msg: "User created but failed to send email",
           error: err.message,
         });
+        console.log(err.message);
       }
     })
     .catch((err) => {
       res.send({ status: 0, msg: "Failed to save user", error: err.message });
+      console.log(err);
     });
 };
 
