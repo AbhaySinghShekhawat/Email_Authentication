@@ -49,6 +49,8 @@ const Signup = () => {
     } catch (error) {
       notify("Signup failed", false);
       console.error("Signup error:", error);
+        console.log("Signup Error Response:", error.response?.data || error.message);
+
       
     } finally {
       setLoading(false);
