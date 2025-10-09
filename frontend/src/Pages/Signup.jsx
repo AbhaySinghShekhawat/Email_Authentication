@@ -35,6 +35,7 @@ const Signup = () => {
    
       if (response.data.status === 1) {
         const { user, token } = response.data;
+        console.log(user);
         setuserData(user);
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("token", token);
@@ -42,10 +43,12 @@ const Signup = () => {
         navigate("/verify-otp");
       } else {
         setuserData(null);
+        console.log(response.data.message);
         notify(response.data.message, false);
       }
     } catch (error) {
       notify("Signup failed", false);
+      console.error("Signup error:", error);
       
     } finally {
       setLoading(false);
