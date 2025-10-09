@@ -42,7 +42,7 @@ const Signup = () => {
         notify(response.data.message, true);
         navigate("/verify-otp");
       } else {
-        setuserData(null);
+        setuserData(user);
         console.log(response.data.message);
         notify(response.data.message, false);
       }
