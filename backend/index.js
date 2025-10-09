@@ -13,10 +13,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: ["https://email-authentication-u64e.onrender.com"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE","OPTIONS"],
     credentials: true,
   })
 );
+app.options("*", cors());
 
 app.use("/api/user", userRouter);
 
