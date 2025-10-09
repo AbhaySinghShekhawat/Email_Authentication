@@ -5,59 +5,54 @@ const sendEmail = require("../utils/email");
 const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res) => {
-  try {
-    const { username, email, password, passwordConfirm } = req.body;
+  let { username, email, password, passwordConfirm } = req.body;
 
-    const exist = await User.findOne({ email });
-    if (exist) {
-      return res.status(400).json({ status: 0, msg: "User already exists" });
-    }
-
-    const otp = generateOtp();
-    const otpExpires = Date.now() + 24 * 60 * 60 * 1000;
-
-    const user = await User.create({
-      username,
-      email,
-      password,
-      passwordConfirm,
-      otp,
-      otpExpires,
-      isVerified: false,
-    });
-
-    try {
-      await sendEmail({
-        email: user.email,
-        subject: "OTP for email verification",
-        html: `<h1>Your OTP is: ${otp}</h1>`,
-      });
-
-      const userWithoutPassword = await User.findById(user._id).select("-password");
-      return res.status(200).json({
-        status: 1,
-        msg: "User created successfully. OTP sent to your email.",
-        user: userWithoutPassword,
-      });
-    } catch (err) {
-      await User.findByIdAndDelete(user._id);
-      console.error("Email send failed:", err.message);
-      return res.status(500).json({
-        status: 0,
-        msg: "User created but failed to send email",
-        error: err.message,
-      });
-    }
-  } catch (err) {
-    console.error("Signup error:", err);
-    return res.status(500).json({
-      status: 0,
-      msg: "Failed to signup user",
-      error: err.message,
-    });
+  let exist = await User.findOne({ email });
+  if (exist) {
+    return res.send({ status: 0, msg: "User already exists" });
   }
-};
 
+  let otp = generateOtp();
+  let otpExpires = Date.now() + 24 * 60 * 60 * 1000;
+
+  let user = new User({
+    username,
+    email,
+    password,
+    passwordConfirm,
+    otp,
+    otpExpires,
+    isVerified: false,
+  });
+
+  user
+    .save()
+    .then(async () => {
+      try {
+        await sendEmail({
+          email: user.email,
+          subject: "OTP for email verification",
+          html: `<h1>Your OTP is: ${otp}</h1>`,
+        });
+        let userWithoutPassword = await User.findById(user._id).select("-password ");
+        res.send({
+          status: 1,
+          msg: "User created successfully,OTP sent to your email",
+          user: userWithoutPassword,
+        });
+      } catch (err) {
+        await User.findByIdAndDelete(user._id);
+        res.send({
+          status: 0,
+          msg: "User created but failed to send email",
+          error: err.message,
+        });
+      }
+    })
+    .catch((err) => {
+      res.send({ status: 0, msg: "Failed to save user", error: err.message });
+    });
+};
 
 exports.verfifyAccount = async (req, res) => {
   try {
